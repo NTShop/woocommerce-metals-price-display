@@ -19,9 +19,7 @@ jQuery( document ).ready( function( $ ) {
 	var data = metals_price_updater.metal_price_json;
 	var tempData = $.parseJSON( data );
 	var countDownDate = new Date( metals_price_updater.next_update ).getTime();
-	var ended = true;
 	function getMetalPrices() { 
-		ended = false;
 		$.ajax({
 			url: metals_price_updater.ajax_url,
 			type: 'post',
@@ -33,7 +31,6 @@ jQuery( document ).ready( function( $ ) {
 		});
 	}
 	function updatePriceDisplay( data ) {
-		ended = true;
 		countDownDate = new Date( data.timeToUpdate ).getTime();
 		if ( metals_price_updater.price_unit_of_measure === 'oz' ) { 
 			$( '.gold_price' ).html( data.goldPriceOunce );
@@ -51,7 +48,7 @@ jQuery( document ).ready( function( $ ) {
 	setInterval( function () {
 		let now = new Date().getTime();
 		let timeDifference = countDownDate - now;
-		if ( timeDifference < 0 && ended ) {
+		if ( timeDifference < 0 ) {
 			getMetalPrices();
 		} else {
 			var minutes = Math.floor( ( timeDifference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) );
