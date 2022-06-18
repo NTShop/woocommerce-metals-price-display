@@ -50,12 +50,12 @@ jQuery( document ).ready( function( $ ) {
 	}
 	setInterval( function () {
 		let now = new Date().getTime();
-		let distance = countDownDate - now;
-		if ( distance < 0 && ended ) {
+		let timeDifference = countDownDate - now;
+		if ( timeDifference < 0 && ended ) {
 			getMetalPrices();
 		} else {
-			var minutes = Math.floor( ( distance % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) );
-			var seconds = Math.floor( ( distance % ( 1000 * 60 ) ) / 1000 );
+			var minutes = Math.floor( ( timeDifference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) );
+			var seconds = Math.floor( ( timeDifference % ( 1000 * 60 ) ) / 1000 );
 			$( '.countdown' ).html( minutes + 'm ' + seconds + 's' );
 		}
 	}, 1000 );
