@@ -113,7 +113,7 @@ class WC_Metals_Price_Display {
 			'ajax_url'              => admin_url( 'admin-ajax.php' ),
 		);
 
-		wp_enqueue_script( 'metals-price-updater', plugin_dir_url( __FILE__ ) . '../assets/js/metals-price-updater.js', array( 'jquery' ), METALS_UPDATER_VERSION, true );
+		wp_enqueue_script( 'metals-price-updater', plugin_dir_url( PLUGIN_FILE ) . 'assets/js/metals-price-updater.js', array( 'jquery' ), METALS_UPDATER_VERSION, true );
 		wp_localize_script( 'metals-price-updater', 'metals_price_updater', $args );
 	}
 

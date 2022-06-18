@@ -35,6 +35,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+const PLUGIN_FILE = __FILE__;
+
 /**
  * Used to enqueue the Javascript
  *
