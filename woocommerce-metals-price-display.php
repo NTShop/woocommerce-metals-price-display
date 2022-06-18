@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const PLUGIN_FILE = __FILE__;
+const WC_METALS_PLUGIN_FILE = __FILE__;
 
 /**
  * Used to enqueue the Javascript
