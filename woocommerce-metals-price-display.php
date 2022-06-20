@@ -55,4 +55,4 @@ function metals_price_display_load_if_wc_active() {
 	}
 	require_once dirname( __FILE__ ) . '/includes/class-wc-metals-price-display.php';
 }
-add_action( 'init', 'metals_price_display_load_if_wc_active', 0 );
+add_action( 'plugins_loaded', 'metals_price_display_load_if_wc_active', 0 );
