@@ -12,7 +12,7 @@
  * Example HTML:
  * <p style="text-align: right;">Gold: <span class="gold_price"></span> <span class="metal_price_separator">|</span> Silver: <span class="silver_price"></span> <span class="metal_price_separator">|</span> Platinum: <span class="platinum_price"></span> <span class="metal_price_separator">|</span> Palladium: <span class="palladium_price"></span> <span class="metal_price_separator">|</span> Date: <span class="current_date"></span> <span class="metal_price_separator">|</span> Next update: <span class="countdown"></span></p>
  *
- * @package Metals Price Display
+ * @package Metals_Price_Display
  *
  */
 jQuery( document ).ready( function( $ ) { 

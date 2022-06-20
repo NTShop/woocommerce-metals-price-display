@@ -2,7 +2,7 @@
 /**
  * Do not allow directory browsing
  *
- * @package Metals Price Display
+ * @package Metals_Price_Display
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
