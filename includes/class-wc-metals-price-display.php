@@ -8,6 +8,8 @@
  * @package Metals_Price_Display
  */
 
+namespace MJE\MetalsPriceDisplay;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

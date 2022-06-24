@@ -31,6 +31,8 @@
  * @package Metals_Price_Display
  */
 
+namespace MJE\MetalsPriceDisplay;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -49,10 +51,10 @@ define( 'METALS_UPDATER_VERSION', '1.0' );
  *
  * @return void
  */
-function metals_price_display_load_if_wc_active() {
+function load_if_wc_active() {
 	if ( ! class_exists( 'woocommerce' ) ) {
 		return;
 	}
 	require_once dirname( __FILE__ ) . '/includes/class-wc-metals-price-display.php';
 }
-add_action( 'plugins_loaded', 'metals_price_display_load_if_wc_active', 0 );
+add_action( 'plugins_loaded', 'MJE\MetalsPriceDisplay\load_if_wc_active', 0 );
