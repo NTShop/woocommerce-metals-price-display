@@ -15,50 +15,52 @@
  * @package Metals_Price_Display
  *
  */
-jQuery( document ).ready( function( $ ) { 
-	var data = metals_price_updater.metal_price_json;
-	var tempData = $.parseJSON( data );
-	var countDownDate = new Date( metals_price_updater.next_update ).getTime();
-	function getMetalPrices() { 
-		$.ajax({
-			url: metals_price_updater.ajax_url,
-			type: 'post',
-			data: { 'action' : 'get_metal_prices' },
-			dataType: 'json',
-			success: function( data ) {
-				updatePriceDisplay( data );
+( function( $ ) {
+	$( function() {
+		var data = metals_price_updater.metal_price_json;
+		var tempData = $.parseJSON( data );
+		var countDownDate = new Date( metals_price_updater.next_update ).getTime();
+		function getMetalPrices() { 
+			$.ajax({
+				url: metals_price_updater.ajax_url,
+				type: 'post',
+				data: { 'action' : 'get_metal_prices' },
+				dataType: 'json',
+				success: function( data ) {
+					updatePriceDisplay( data );
+				}
+			});
+		}
+		function updatePriceDisplay( data ) {
+			countDownDate = new Date( data.timeToUpdate ).getTime();
+			if ( metals_price_updater.price_unit_of_measure === 'oz' ) { 
+				$( '.gold_price' ).html( data.goldPriceOunce );
+				$( '.silver_price' ).html( data.silverPriceOunce );
+				$( '.platinum_price' ).html( data.platinumPriceOunce );
+				$( '.palladium_price' ).html( data.palladiumPriceOunce );
+			} else if ( metals_price_updater.price_unit_of_measure === 'gr' ) { 
+				$( '.gold_price' ).html( data.goldPriceGram );
+				$( '.silver_price' ).html( data.silverPriceGram );
+				$( '.platinum_price' ).html( data.platinumPriceGram );
+				$( '.palladium_price' ).html( data.palladiumPriceGram );
 			}
-		});
-	}
-	function updatePriceDisplay( data ) {
-		countDownDate = new Date( data.timeToUpdate ).getTime();
-		if ( metals_price_updater.price_unit_of_measure === 'oz' ) { 
-			$( '.gold_price' ).html( data.goldPriceOunce );
-			$( '.silver_price' ).html( data.silverPriceOunce );
-			$( '.platinum_price' ).html( data.platinumPriceOunce );
-			$( '.palladium_price' ).html( data.palladiumPriceOunce );
-		} else if ( metals_price_updater.price_unit_of_measure === 'gr' ) { 
-			$( '.gold_price' ).html( data.goldPriceGram );
-			$( '.silver_price' ).html( data.silverPriceGram );
-			$( '.platinum_price' ).html( data.platinumPriceGram );
-			$( '.palladium_price' ).html( data.palladiumPriceGram );
+			$( '.current_date' ).html( data.currentDate );
 		}
-		$( '.current_date' ).html( data.currentDate );
-	}
-	setInterval( function () {
-		let now = new Date().getTime();
-		let timeDifference = countDownDate - now;
-		if ( timeDifference < 0 ) {
+		setInterval( function () {
+			let now = new Date().getTime();
+			let timeDifference = countDownDate - now;
+			if ( timeDifference < 0 ) {
+				getMetalPrices();
+			} else {
+				var minutes = Math.floor( ( timeDifference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) );
+				var seconds = Math.floor( ( timeDifference % ( 1000 * 60 ) ) / 1000 );
+				$( '.countdown' ).html( minutes + 'm ' + seconds + 's' );
+			}
+		}, 1000 );
+		if ( typeof( tempData.timeToUpdate ) === 'undefined' ) {
 			getMetalPrices();
-		} else {
-			var minutes = Math.floor( ( timeDifference % ( 1000 * 60 * 60 ) ) / ( 1000 * 60 ) );
-			var seconds = Math.floor( ( timeDifference % ( 1000 * 60 ) ) / 1000 );
-			$( '.countdown' ).html( minutes + 'm ' + seconds + 's' );
+		} else { 
+			updatePriceDisplay( tempData );
 		}
-	}, 1000 );
-	if ( typeof( tempData.timeToUpdate ) === 'undefined' ) {
-		getMetalPrices();
-	} else { 
-		updatePriceDisplay( tempData );
-	}
-});
+	});
+})(jQuery);
