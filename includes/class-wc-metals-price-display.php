@@ -42,6 +42,13 @@ class WC_Metals_Price_Display {
 		add_action( 'wp_ajax_get_metal_prices', ( array( &$this, 'get_metal_prices' ) ) );
 		add_action( 'wp_ajax_nopriv_get_metal_prices', ( array( &$this, 'get_metal_prices' ) ) );
 		add_action( 'wp_enqueue_scripts', array( &$this, 'inject_timer_script' ), 90 );
+
+		/**
+		 * Allow update interval to adjusted
+		 *
+		 * @param int $this->update_interval Number of minutes between price display updates.
+		 */
+		$this->update_interval = apply_filters( 'wc_metals_price_display_update_interval', $this->update_interval );
 	}
 
 	/**
