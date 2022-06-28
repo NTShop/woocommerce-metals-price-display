@@ -91,18 +91,18 @@ class WC_Metals_Price_Display {
 			// The function current_datetime() only exists in WP 5.3 and newer.
 			if ( function_exists( 'current_datetime' ) ) {
 				$time_now          = current_datetime();
-				$current_date_time = $time_now->getTimestamp() + $time_now->getOffset();
-				$current_date_time = gmdate( 'Y-m-d H:i', $current_date_time );
+				$current_date_time = $time_now->getTimestamp();
+				$next_update       = $current_date_time . '000'; // Convert seconds to milliseconds for use in Javascript Date() function.
 			} else {
-				$current_date_time = current_time( 'mysql', false );
+				$next_update = current_time( 'timestamp', false ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
+				$next_update = strtotime( $current_date_time ) . '000';
 			}
-			$next_update = $current_date_time;
 		}
 
 		if ( empty( $next_update ) ) {
 			// Time until the next update. This will be empty the first time this function runs on the site so set a value.
-			$next_update = strtotime( '+' . $this->update_interval . ' minutes', time() );
-			$next_update = gmdate( 'Y-m-d H:i:s+0000', $next_update );
+			$next_update  = strtotime( '+' . $this->update_interval . ' minutes', time() );
+			$next_update .= '000'; // Convert seconds to milliseconds for use in Javascript Date() function.
 		}
 
 		// Allow filtering the price unit of measure to display. Valid filter return values are "oz" (for ounce price) and "gr" (for gram price).
@@ -148,8 +148,8 @@ class WC_Metals_Price_Display {
 	 */
 	public function get_metal_prices() {
 		// Set next time to update.
-		$next_update = strtotime( '+' . $this->update_interval . ' minutes', time() );
-		$next_update = gmdate( 'Y-m-d H:i:s+0000', $next_update );
+		$next_update  = strtotime( '+' . $this->update_interval . ' minutes', time() );
+		$next_update .= '000'; // Convert seconds to milliseconds for use in Javascript Date() function.
 
 		// Check if transient data already exists.
 		$data = get_transient( 'metal_price_json' );

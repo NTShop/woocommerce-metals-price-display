@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Metals Price Display
  * Plugin URI: https://github.com/NTShop
  * Description: Inserts metal prices into specific HTML elements on a page based on CSS class names and gets retrieves current prices every 5 minutes. Requires the use of IgniteWoo's Precious Metals plugin.
- * Version: 1.0
+ * Version: 1.0.1
  * Author: Mark Edwards
  * Author URI: https://github.com/NTShop
  * Requires at least: 5.3
